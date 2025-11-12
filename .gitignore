@@ -1,0 +1,26 @@
+# Ignore uploads folder
+uploads/
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore log files
+*.log
+
+# Ignore PHP session and temp files
+*.sess
+*.tmp
+
+# Ignore IDE/editor files
+.vscode/
+.idea/
+
+# Ignore Composer vendor folder if you use it
+vendor/
+
+# Ignore node modules if you use npm
+node_modules/
+
+# Ignore environment files
+.env
