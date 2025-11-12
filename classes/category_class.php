@@ -1,6 +1,6 @@
 <?php
 //connect to database class
-require("../settings/db_class.php");
+include_once __DIR__ . '/../settings/db_class.php';
 
 /**
 *General class to handle all functions 
@@ -37,6 +37,13 @@ class category_class extends db_connection
         $sql = "SELECT * FROM categories WHERE customer_id = $user";
         $result = $ndb->db_fetch_all($sql);
         return $result;
+    }
+
+
+    public function view_all_categories_public()
+    {
+        $sql = "SELECT * FROM `categories` ORDER BY cat_name ASC";
+        return $this->db_fetch_all($sql);
     }
 
 

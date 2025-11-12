@@ -1,4 +1,7 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 require_once '../settings/core.php';
 require_once '../actions/fetch_category_action.php';
 
@@ -8,6 +11,8 @@ if (!isLoggedIn() || !isAdmin()) {
     header("Location: ../view/login.php");
     exit();
 }
+
+
 
 ?>
 
@@ -26,9 +31,52 @@ if (!isLoggedIn() || !isAdmin()) {
         input[type="text"] { padding: 6px; border-radius: 4px; border: 1px solid #ccc;}
         button, input[type="submit"] { padding: 6px 12px; border-radius: 4px; border: none; background: #007BFF; color: #fff; cursor: pointer;}
         button.delete { background: #dc3545; }
+        .nav {
+            width: 100%;
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            padding: 16px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            text-align: center;
+            z-index: 100;
+            }
+            .nav .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 0 8px;
+            border: none;
+            border-radius: 6px;
+            background-color: #007BFF;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+            text-decoration: none;
+            }
+            .nav .btn:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+            }
+            .nav .btn:active {
+            transform: translateY(0);
+            }
     </style>
 </head>
 <body>
+    <nav class="nav">
+        <?php if (isAdmin()): ?>
+        <a href="../actions/logout.php" class="btn">Logout</a>
+        <a href="brand.php" class="btn">Brand</a>
+        <a href="product.php" class="btn">Product</a>        
+        <?php elseif (!isLoggedIn()): ?>
+        <a href="view/register.php" class="btn">Register</a>
+        <a href="view/login.php" class="btn">Login</a>
+        <?php else: ?>
+        <a href="actions/logout.php" class="btn">Logout</a>
+        <?php endif; ?>
+  </nav>
 <div class="container">
     <h2>Manage Categories</h2>
     <?php if (!empty($error)): ?>

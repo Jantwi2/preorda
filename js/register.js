@@ -31,7 +31,7 @@ document.getElementById("registerForm").addEventListener("submit", function(e) {
   loading.style.display = "block";
   message.textContent = "";
 
-  fetch("/actions/register_action.php", {
+  fetch("../actions/register_action.php", {
     method: "POST",
     body: formData
   })
