@@ -142,16 +142,20 @@ class db_connection
 
 	}
 
-	public function db_insert_id()
-    {
-        // ensure connection is available
-        if (!$this->db_connect() || $this->db == null) {
-            return false;
+	    // Get last inserted ID
+    /**
+    *Get last inserted ID
+    *@return int|false
+    **/
+    function insert_id() {
+        if ($this->db) {
+            return mysqli_insert_id($this->db);
         }
-
-        return mysqli_insert_id($this->db);
+        return false;
     }
+
+
+
 	
 }
-
 ?>

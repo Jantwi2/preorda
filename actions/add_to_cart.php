@@ -1,37 +1,50 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 session_start();
-require_once '../controllers/cart_controller.php';
 
-// Ensure user is logged in
-if (!isset($_SESSION['customer_id'])) {
-    header("Location: ../login.php");
-    exit();
+// Initialize cart if not exists
+if (!isset($_SESSION['cart'])) {
+    $_SESSION['cart'] = [];
 }
 
-$customer_id = $_SESSION['customer_id'];
-$product_id = $_POST['product_id'];
-$quantity = $_POST['quantity'] ?? 1;
+// Get product ID and quantity
+$product_id = isset($_POST['product_id']) ? intval($_POST['product_id']) : 0;
+$quantity = isset($_POST['quantity']) ? intval($_POST['quantity']) : 1;
 
-// Step 1: Check if product already exists in cart
-$existing_cart_item = check_product_in_cart_ctr($customer_id, $product_id);
-
-if ($existing_cart_item) {
-    // Step 2: If product exists, increment quantity
-    $new_qty = $existing_cart_item['qty'] + $quantity;
-    $result = update_cart_item_ctr($customer_id, $product_id, $new_qty);
+if ($product_id > 0 && $quantity > 0) {
+    // Add to cart or update quantity
+    if (isset($_SESSION['cart'][$product_id])) {
+        $_SESSION['cart'][$product_id] += $quantity;
+    } else {
+        $_SESSION['cart'][$product_id] = $quantity;
+    }
+    
+    // Return success with cart count
+    if (isset($_POST['ajax'])) {
+        header('Content-Type: application/json');
+        echo json_encode([
+            'success' => true,
+            'cart_count' => count($_SESSION['cart']),
+            'message' => 'Added to cart successfully!'
+        ]);
+        exit();
+    } else {
+        // Redirect to cart page
+        $store_param = isset($_POST['store']) ? '?store=' . htmlspecialchars($_POST['store']) : '';
+        header('Location: ../view/cart.php' . $store_param);
+        exit();
+    }
 } else {
-    // Step 3: Otherwise, add new product
-    $result = add_to_cart_ctr($customer_id, $product_id, $quantity);
-}
-
-if ($result) {
-    header("Location: ../view/cart.php?success=1");
-    exit();
-} else {
-    header("Location: ../view/cart.php?error=1");
-    exit();
+    if (isset($_POST['ajax'])) {
+        header('Content-Type: application/json');
+        echo json_encode([
+            'success' => false,
+            'message' => 'Invalid product or quantity'
+        ]);
+        exit();
+    } else {
+        $store_param = isset($_POST['store']) ? '?store=' . htmlspecialchars($_POST['store']) : '';
+        header('Location: ../view/products.php' . $store_param);
+        exit();
+    }
 }
 ?>

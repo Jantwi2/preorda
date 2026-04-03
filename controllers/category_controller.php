@@ -1,6 +1,6 @@
 <?php
 //connect to the user account class
-include_once __DIR__ . '/../classes/category_class.php';
+include("../classes/category_class.php");
 
 //sanitize data
 
@@ -12,11 +12,6 @@ function add_cat_ctr($cat_name, $customer_id){
 function get_all_cat_ctr($user){
     $cat=new category_class();
     return $cat->view_all_categories($user);
-}
-
-function get_all_categories_public_ctr() {
-    $cat = new category_class();
-    return $cat->view_all_categories_public();
 }
     
 

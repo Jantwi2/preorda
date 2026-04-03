@@ -1,59 +1,89 @@
 <?php
-require_once '../controllers/cart_controller.php';
-require_once '../settings/core.php';
+session_start();
+require_once("../controllers/product_controller.php");
+require_once("../helpers/encryption.php");
 
-if (!isset($_SESSION['customer_id'])) {
-    header("Location: ../login.php");
-    exit();
-}
-
-// Get order details (you may pass order_id via GET or session)
-$order_id = $_GET['order_id'] ?? null;
-$customer_id = $_SESSION['customer_id'];
-
-if (!$order_id) {
-    echo "No order found.";
-    exit();
-}
-
-// Fetch order info
-$order = get_order_by_id_ctr($order_id);
-if (!$order || $order['c_id'] != $customer_id) {
-    echo "Invalid order.";
-    exit();
-}
-
-// Fetch payment info
-$payment = get_payment_by_order_ctr($order_id);
+// Basic success page
+$reference = $_GET['ref'] ?? 'Unknown';
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment Success</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <title>Payment Successful - PreOrda</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .success-card {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+        }
+        .icon {
+            font-size: 64px;
+            color: #48bb78;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+        p {
+            color: #718096;
+            margin-bottom: 30px;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #2c3e50;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+        .btn:hover {
+            background-color: #1a202c;
+        }
+    </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
-
-<div class="flex items-center justify-center min-h-screen p-6">
-    <div class="bg-white rounded-2xl shadow-lg p-8 max-w-md w-full text-center">
-        <h1 class="text-3xl font-bold text-green-600 mb-4">✅ Payment Successful!</h1>
-        <p class="text-gray-700 mb-4">Thank you for your order.</p>
-
-        <div class="bg-gray-100 p-4 rounded-lg mb-4 text-left">
-            <p><span class="font-semibold">Order Reference:</span> <?php echo htmlspecialchars($order['order_id']); ?></p>
-            <p><span class="font-semibold">Amount Paid:</span> ₵<?php echo number_format($payment['amt'], 2); ?></p>
-            <p><span class="font-semibold">Currency:</span> <?php echo htmlspecialchars($payment['currency']); ?></p>
-            <p><span class="font-semibold">Payment Date:</span> <?php echo date("d M Y, H:i", strtotime($payment['payment_date'])); ?></p>
-        </div>
-
-        <a href="../index.php" class="inline-block bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 transition">
-            Continue Shopping
-        </a>
+<body>
+    <div class="success-card">
+        <div class="icon">✓</div>
+        <h1>Payment Successful!</h1>
+        <p>Thank you for your order. Your payment reference is <strong><?php echo htmlspecialchars($reference); ?></strong>.</p>
+        <p>We have sent a confirmation email with your order details and tracking information.</p>
+        <p style="color: #999; font-size: 14px;">Redirecting to order tracking in <span id="countdown">3</span> seconds...</p>
+        <a href="track.php?ref=<?php echo urlencode($reference); ?>" class="btn">Track Your Order</a>
     </div>
-</div>
-
+    
+    <script>
+        // Auto-redirect to track page after 3 seconds
+        let seconds = 3;
+        const countdownEl = document.getElementById('countdown');
+        
+        const interval = setInterval(() => {
+            seconds--;
+            countdownEl.textContent = seconds;
+            
+            if (seconds <= 0) {
+                clearInterval(interval);
+                window.location.href = 'track.php?ref=<?php echo urlencode($reference); ?>';
+            }
+        }, 1000);
+    </script>
 </body>
 </html>

@@ -1,0 +1,21 @@
+{
+  "name": "PreOrda Marketplace",
+  "short_name": "PreOrda",
+  "description": "The ultimate pre-order marketplace.",
+  "start_url": "/capstone/index.php",
+  "display": "standalone",
+  "background_color": "#2c3e50",
+  "theme_color": "#2c3e50",
+  "icons": [
+    {
+      "src": "/capstone/images/logo_c.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/capstone/images/logo1.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

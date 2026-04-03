@@ -1,7 +1,6 @@
 <?php
 session_start();
-require_once("../controllers/customer_controller.php"); // adjust path if needed
-
+require_once("../controllers/user_controller.php"); // adjust path if needed
 header("Content-Type: application/json");
 
 // Ensure POST request
@@ -30,7 +29,7 @@ $result = login_customer_ctr($email, $password);
 if ($result === "success") {
     echo json_encode([
         "success" => true,
-        "redirect" => "../index.php" 
+        "redirect" => "../index.php" // adjust to your dashboard path
     ]);
 } elseif ($result === "invalid_password") {
     echo json_encode([

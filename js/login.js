@@ -40,7 +40,7 @@ document.getElementById("loginForm").addEventListener("submit", function(e) {
       message.style.color = "green";
       message.textContent = "Login successful! Redirecting...";
       setTimeout(function() {
-        window.location.href = result.redirect || "../index2.php";
+        window.location.href = result.redirect || "../index.php";
       }, 1500);
     } else {
       message.style.color = "red";

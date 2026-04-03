@@ -1,71 +1,45 @@
 <?php
-include_once dirname(__FILE__) . '/../classes/order_class.php';
+require_once(__DIR__ . "/../classes/order_class.php");
 
-/**
- * Create a new order
- * Returns the order_id or false on failure
- */
-function create_order_ctr($customer_id, $total_amount, $invoice_no, $order_status = 'Pending') {
+function get_vendor_revenue_ctr($vendor_id)
+{
     $order = new order_class();
-    return $order->create_order($customer_id, $total_amount, $invoice_no, $order_status);
+    return $order->get_vendor_revenue($vendor_id);
 }
 
-/**
- * Add an item to order details
- */
-function add_order_details_ctr($order_id, $product_id, $quantity, $price) {
+function get_vendor_active_orders_count_ctr($vendor_id)
+{
     $order = new order_class();
-    return $order->add_order_details($order_id, $product_id, $quantity, $price);
+    return $order->get_vendor_active_orders_count($vendor_id);
 }
 
-/**
- * Record a payment
- */
-function record_payment_ctr($customer_id, $order_id, $amount, $currency = 'Simulated') {
+function get_vendor_customer_count_ctr($vendor_id)
+{
     $order = new order_class();
-    return $order->record_payment($customer_id, $order_id, $amount, $currency);
+    return $order->get_vendor_customer_count($vendor_id);
 }
 
-/**
- * Get all past orders for a user
- */
-function get_user_orders_ctr($customer_id) {
+function get_vendor_recent_orders_ctr($vendor_id)
+{
     $order = new order_class();
-    return $order->get_user_orders($customer_id);
+    return $order->get_vendor_recent_orders($vendor_id);
 }
 
-/**
- * Get details of a specific order
- */
-function get_order_details_ctr($order_id) {
+function get_vendor_orders_ctr($vendor_id)
+{
     $order = new order_class();
-    return $order->get_order_details($order_id);
+    return $order->get_vendor_orders($vendor_id);
 }
 
-/**
- * Checkout helper: creates order, adds details, records payment
- * $cart_items is an array of cart items, each with keys: product_id, qty, price
- */
-function process_checkout_ctr($customer_id, $cart_items, $shipping_address = null) {
-    if (empty($cart_items)) return false;
+function update_order_status_ctr($order_id, $status)
+{
+    $order = new order_class();
+    return $order->update_order_status($order_id, $status);
+}
 
-    $total_amount = 0;
-    foreach ($cart_items as $item) {
-        $total_amount += $item['qty'] * $item['price'];
-    }
-
-    // Step 1: Create order
-    $order_id = create_order_ctr($customer_id, $total_amount, 'Pending', $shipping_address);
-    if (!$order_id) return false;
-
-    // Step 2: Add order details
-    foreach ($cart_items as $item) {
-        add_order_details_ctr($order_id, $item['product_id'], $item['qty'], $item['price']);
-    }
-
-    // Step 3: Record payment (simulated)
-    record_payment_ctr($order_id, $total_amount, 'Simulated', 'Paid');
-
-    return $order_id;
+function get_customer_orders_ctr($user_id)
+{
+    $order = new order_class();
+    return $order->get_customer_orders($user_id);
 }
 ?>

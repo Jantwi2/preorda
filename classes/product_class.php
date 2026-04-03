@@ -1,242 +1,161 @@
 <?php
-require_once("../settings/db_class.php");
+require_once(__DIR__ . "/../settings/db_class.php");
 
 class product_class extends db_connection
 {
-    // ==============================
-    // 1. ADD PRODUCT
-    // ==============================
-    public function add_product($title, $price, $description, $cat_id, $brand_id, $image_name, $keyword, $user_id)
+    // Get total number of products for a vendor
+    public function get_vendor_product_count($vendor_id)
+    {
+        $sql = "SELECT COUNT(*) as count FROM products WHERE vendor_id = '$vendor_id'";
+        $result = $this->db_fetch_one($sql);
+        return $result['count'] ?? 0;
+    }
+
+    // Get all products for a vendor
+    public function get_vendor_products($vendor_id)
+    {
+        $sql = "SELECT p.*, c.name as category_name, b.name as brand_name 
+                FROM products p 
+                LEFT JOIN categories c ON p.category_id = c.category_id 
+                LEFT JOIN brands b ON p.brand_id = b.brand_id 
+                WHERE p.vendor_id = '$vendor_id' 
+                ORDER BY p.created_at DESC";
+        return $this->db_fetch_all($sql);
+    }
+
+    // Get all products (public view)
+    public function get_all_products()
+    {
+        $sql = "SELECT p.*, c.name as category_name, b.name as brand_name 
+                FROM products p 
+                LEFT JOIN categories c ON p.category_id = c.category_id 
+                LEFT JOIN brands b ON p.brand_id = b.brand_id 
+                ORDER BY p.created_at DESC";
+        return $this->db_fetch_all($sql);
+    }
+
+    // Add a new product
+    public function add_product($vendor_id, $name, $price, $description, $category_id, $brand_id, $image_url, $stock_status, $estimated_delivery_time)
     {
         $ndb = new db_connection();
-        $conn = $ndb->db_conn();
-
-        $title = mysqli_real_escape_string($conn, $title);
-        $price = mysqli_real_escape_string($conn, $price);
-        $description = mysqli_real_escape_string($conn, $description);
-        $cat_id = (int)$cat_id;
-        $brand_id = (int)$brand_id;
-        $image_path = $image_name ? mysqli_real_escape_string($conn, '../uploads/' . $image_name) : '';
-        $keyword = mysqli_real_escape_string($conn, $keyword);
-        $user_id = (int)$user_id;
-
-        $sql = "INSERT INTO `products`
-                (`product_title`, `product_price`, `product_desc`, `product_cat`, `product_brand`, `product_image`, `product_keywords`, `user_id`)
-                VALUES ('$title', '$price', '$description', $cat_id, $brand_id, '$image_path', '$keyword', '$user_id')";
+        $name = mysqli_real_escape_string($ndb->db_conn(), $name);
+        $description = mysqli_real_escape_string($ndb->db_conn(), $description);
+        $image_url = mysqli_real_escape_string($ndb->db_conn(), $image_url);
+        $estimated_delivery_time = mysqli_real_escape_string($ndb->db_conn(), $estimated_delivery_time);
+        
+        $sql = "INSERT INTO products (vendor_id, name, price, description, category_id, brand_id, image_url, stock_status, estimated_delivery_time, created_at) 
+                VALUES ('$vendor_id', '$name', '$price', '$description', '$category_id', '$brand_id', '$image_url', '$stock_status', '$estimated_delivery_time', NOW())";
+        
         return $this->db_query($sql);
     }
 
-    // ==============================
-    // 2. VIEW ALL PRODUCTS
-    // ==============================
-    public function view_all_products($user_id = null)
+    // Edit an existing product
+    public function edit_product($product_id, $vendor_id, $name, $price, $description, $category_id, $brand_id, $image_url, $stock_status, $estimated_delivery_time)
     {
         $ndb = new db_connection();
-        $where = $user_id ? "WHERE p.user_id = " . (int)$user_id : "";
-
-        $sql = "
-            SELECT p.*, c.cat_name AS category_name, b.brand_name AS brand_name
-            FROM `products` AS p
-            LEFT JOIN `categories` AS c ON p.product_cat = c.cat_id
-            LEFT JOIN `brands` AS b ON p.product_brand = b.brand_id
-            $where
-            ORDER BY p.product_id DESC
-        ";
-        return $ndb->db_fetch_all($sql);
-    }
-
-    // ==============================
-    // 3. SEARCH PRODUCTS
-    // ==============================
-    public function search_products($query, $user_id = null)
-    {
-        $ndb = new db_connection();
-        $conn = $ndb->db_conn();
-
-        $query = mysqli_real_escape_string($conn, $query);
-        $user_filter = $user_id ? "AND p.user_id = " . (int)$user_id : "";
-
-        $sql = "
-            SELECT p.*, c.cat_name AS category_name, b.brand_name AS brand_name
-            FROM `products` AS p
-            LEFT JOIN `categories` AS c ON p.product_cat = c.cat_id
-            LEFT JOIN `brands` AS b ON p.product_brand = b.brand_id
-            WHERE (p.product_title LIKE '%$query%'
-                OR p.product_desc LIKE '%$query%'
-                OR p.product_keywords LIKE '%$query%')
-            $user_filter
-            ORDER BY p.product_title ASC
-        ";
-        return $ndb->db_fetch_all($sql);
-    }
-
-    // ==============================
-    // 4. FILTER BY CATEGORY
-    // ==============================
-    public function filter_products_by_category($cat_id, $user_id = null)
-    {
-        $ndb = new db_connection();
-        $cat_id = (int)$cat_id;
-        $user_filter = $user_id ? "AND p.user_id = " . (int)$user_id : "";
-
-        $sql = "
-            SELECT p.*, c.cat_name AS category_name, b.brand_name AS brand_name
-            FROM `products` AS p
-            LEFT JOIN `categories` AS c ON p.product_cat = c.cat_id
-            LEFT JOIN `brands` AS b ON p.product_brand = b.brand_id
-            WHERE p.product_cat = $cat_id
-            $user_filter
-            ORDER BY p.product_id DESC
-        ";
-        return $ndb->db_fetch_all($sql);
-    }
-
-    // ==============================
-    // 5. FILTER BY BRAND
-    // ==============================
-    public function filter_products_by_brand($brand_id, $user_id = null)
-    {
-        $ndb = new db_connection();
-        $brand_id = (int)$brand_id;
-        $user_filter = $user_id ? "AND p.user_id = " . (int)$user_id : "";
-
-        $sql = "
-            SELECT p.*, c.cat_name AS category_name, b.brand_name AS brand_name
-            FROM `products` AS p
-            LEFT JOIN `categories` AS c ON p.product_cat = c.cat_id
-            LEFT JOIN `brands` AS b ON p.product_brand = b.brand_id
-            WHERE p.product_brand = $brand_id
-            $user_filter
-            ORDER BY p.product_id DESC
-        ";
-        return $ndb->db_fetch_all($sql);
-    }
-
-    // ==============================
-    // 6. VIEW SINGLE PRODUCT
-    // ==============================
-    public function view_single_product($product_id)
-    {
-        return $this->view_product_by_id($product_id);
-    }
-
-    // Existing function retained
-    public function view_product_by_id($product_id)
-    {
-        $ndb = new db_connection();
-        $product_id = (int)$product_id;
-
-        $sql = "
-            SELECT p.*, c.cat_name AS category_name, b.brand_name AS brand_name
-            FROM `products` AS p
-            LEFT JOIN `categories` AS c ON p.product_cat = c.cat_id
-            LEFT JOIN `brands` AS b ON p.product_brand = b.brand_id
-            WHERE p.product_id = $product_id
-            LIMIT 1
-        ";
-        $rows = $ndb->db_fetch_all($sql);
-        return !empty($rows) ? $rows[0] : null;
-    }
-
-    // ==============================
-    // 7. UPDATE PRODUCT
-    // ==============================
-    public function update_product($product_id, $title, $price, $description, $cat_id, $brand_id, $image_name = null, $keyword = null)
-    {
-        $ndb = new db_connection();
-        $conn = $ndb->db_conn();
-
-        $product_id = (int)$product_id;
-        $title = mysqli_real_escape_string($conn, $title);
-        $price = mysqli_real_escape_string($conn, $price);
-        $description = mysqli_real_escape_string($conn, $description);
-        $cat_id = (int)$cat_id;
-        $brand_id = (int)$brand_id;
-
-        $sets = [];
-        $sets[] = "`product_title` = '$title'";
-        $sets[] = "`product_price` = '$price'";
-        $sets[] = "`product_desc` = '$description'";
-        $sets[] = "`product_cat` = $cat_id";
-        $sets[] = "`product_brand` = $brand_id";
-
-        if ($keyword !== null) {
-            $keyword = mysqli_real_escape_string($conn, $keyword);
-            $sets[] = "`product_keywords` = '$keyword'";
-        }
-
-        if ($image_name) {
-            $image_path = mysqli_real_escape_string($conn, '../uploads/' . $image_name);
-            $sets[] = "`product_image` = '$image_path'";
-        }
-
-        $sql = "UPDATE `products` SET " . implode(', ', $sets) . " WHERE `product_id` = $product_id";
+        $name = mysqli_real_escape_string($ndb->db_conn(), $name);
+        $description = mysqli_real_escape_string($ndb->db_conn(), $description);
+        $image_url = mysqli_real_escape_string($ndb->db_conn(), $image_url);
+        $estimated_delivery_time = mysqli_real_escape_string($ndb->db_conn(), $estimated_delivery_time);
+        
+        $sql = "UPDATE products SET 
+                name = '$name', 
+                price = '$price', 
+                description = '$description', 
+                category_id = '$category_id', 
+                brand_id = '$brand_id', 
+                image_url = '$image_url', 
+                stock_status = '$stock_status',
+                estimated_delivery_time = '$estimated_delivery_time'
+                WHERE product_id = '$product_id' AND vendor_id = '$vendor_id'";
+        
         return $this->db_query($sql);
     }
 
-    // ==============================
-    // 8. DELETE PRODUCT
-    // ==============================
-    public function delete_product($product_id)
+    // Delete a product
+    public function delete_product($product_id, $vendor_id)
     {
-        $ndb = new db_connection();
-        $product_id = (int)$product_id;
-
-        $row = $this->view_product_by_id($product_id);
-        $sql = "DELETE FROM `products` WHERE `product_id` = $product_id";
-        $res = $this->db_query($sql);
-
-        if ($res && !empty($row['product_image'])) {
-            $imgPath = $row['product_image'];
-            if (strpos($imgPath, '..') !== false && file_exists($imgPath)) {
-                @unlink($imgPath);
-            }
-        }
-        return $res;
+        $sql = "DELETE FROM products WHERE product_id = '$product_id' AND vendor_id = '$vendor_id'";
+        return $this->db_query($sql);
     }
 
-    // ==============================
-    // 9. BULK IMAGE UPLOAD
-    // ==============================
-    public function bulk_upload_images(array $files, $destDir = '../uploads/')
+    // Get a single product
+    public function get_product($product_id)
     {
-        $result = ['saved' => [], 'errors' => []];
+        $sql = "SELECT * FROM products WHERE product_id = '$product_id'";
+        return $this->db_fetch_one($sql);
+    }
 
-        if (!is_dir($destDir)) {
-            if (!mkdir($destDir, 0755, true)) {
-                $result['errors'][] = "Failed to create directory: $destDir";
-                return $result;
-            }
-        }
+    // Get all categories
+    public function get_all_categories()
+    {
+        $sql = "SELECT * FROM categories";
+        return $this->db_fetch_all($sql);
+    }
 
-        $count = count($files['name'] ?? []);
-        for ($i = 0; $i < $count; $i++) {
-            $tmpName = $files['tmp_name'][$i] ?? null;
-            $orig = $files['name'][$i] ?? '';
-            $error = $files['error'][$i] ?? 1;
+    // Get all brands
+    public function get_all_brands()
+    {
+        $sql = "SELECT * FROM brands";
+        return $this->db_fetch_all($sql);
+    }
 
-            if ($error !== UPLOAD_ERR_OK || !$tmpName) {
-                $result['errors'][] = "Upload error for file: $orig (code $error)";
-                continue;
-            }
+    public function get_vendor_brands($vendor_id)
+    {
+        $sql = "SELECT * FROM brands WHERE vendor_id = '$vendor_id'";
+        return $this->db_fetch_all($sql);
+    }
 
-            $ext = strtolower(pathinfo($orig, PATHINFO_EXTENSION));
-            if (!in_array($ext, ['jpg', 'jpeg', 'png', 'gif'])) {
-                $result['errors'][] = "Invalid file type for $orig";
-                continue;
-            }
+    public function get_vendor_categories($vendor_id)
+    {
+        $sql = "SELECT * FROM categories WHERE vendor_id = '$vendor_id'";
+        return $this->db_fetch_all($sql);
+    }
 
-            $safeName = time() . '_' . bin2hex(random_bytes(6)) . '.' . $ext;
-            $target = rtrim($destDir, '/') . '/' . $safeName;
+    // --- Category Management ---
+    public function add_category($name, $vendor_id)
+    {
+        $ndb = new db_connection();
+        $name = mysqli_real_escape_string($ndb->db_conn(), $name);
+        $sql = "INSERT INTO categories (name, vendor_id) VALUES ('$name', '$vendor_id')";
+        return $this->db_query($sql);
+    }
 
-            if (move_uploaded_file($tmpName, $target)) {
-                $result['saved'][] = $safeName;
-            } else {
-                $result['errors'][] = "Failed to move $orig";
-            }
-        }
+    public function edit_category($id, $name)
+    {
+        $ndb = new db_connection();
+        $name = mysqli_real_escape_string($ndb->db_conn(), $name);
+        $sql = "UPDATE categories SET name = '$name' WHERE category_id = '$id'";
+        return $this->db_query($sql);
+    }
 
-        return $result;
+    public function delete_category($id)
+    {
+        $sql = "DELETE FROM categories WHERE category_id = '$id'";
+        return $this->db_query($sql);
+    }
+
+    // --- Brand Management ---
+    public function add_brand($name, $vendor_id)
+    {
+        $ndb = new db_connection();
+        $name = mysqli_real_escape_string($ndb->db_conn(), $name);
+        $sql = "INSERT INTO brands (name, vendor_id) VALUES ('$name', '$vendor_id')";
+        return $this->db_query($sql);
+    }
+
+    public function edit_brand($id, $name)
+    {
+        $ndb = new db_connection();
+        $name = mysqli_real_escape_string($ndb->db_conn(), $name);
+        $sql = "UPDATE brands SET name = '$name' WHERE brand_id = '$id'";
+        return $this->db_query($sql);
+    }
+
+    public function delete_brand($id)
+    {
+        $sql = "DELETE FROM brands WHERE brand_id = '$id'";
+        return $this->db_query($sql);
     }
 }
 ?>
