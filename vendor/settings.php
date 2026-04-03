@@ -28,7 +28,7 @@ $vendor_slug = $vendor_details['vendor_slug'] ?? '';
 
 // Encrypt the vendor slug for the shareable link
 $encrypted_slug = encrypt_slug($vendor_slug);
-$shareable_link = "http://" . $_SERVER['HTTP_HOST'] . "/~jemima.antwi/view/products.php?store=" . $encrypted_slug;
+$shareable_link = "https://preorda.page.gd/view/products.php?store=" . $encrypted_slug;
 
 // Get initials for profile photo
 $name_parts = explode(' ', $_SESSION['full_name']);

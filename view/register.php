@@ -663,7 +663,7 @@
         <div class="feat-dot">🔗</div>
         <div class="feat-text">
           <h4>Unique store URL</h4>
-          <p>Share preorda.com/shop/you on any platform</p>
+          <p>Share https://preorda.page.gd/your-store on any platform</p>
         </div>
       </div>
       <div class="feat-row">
@@ -693,7 +693,7 @@
 
     <div class="preview-card">
       <div class="preview-label">Your live store will look like</div>
-      <div class="preview-url">preorda.com/shop/<span id="livePreviewSlug">your-store</span></div>
+      <div class="preview-url">https://preorda.page.gd/view/products.php?store=<span id="livePreviewSlug">your-store</span></div>
       <div class="preview-stats">
         <div>
           <div class="p-stat-val">0</div>
@@ -746,7 +746,7 @@
             <input type="text" id="storeName" placeholder="e.g. Afia Luxe Imports" autocomplete="organization" />
           </div>
           <div class="url-preview-strip" id="urlPreview">
-            <span class="url-domain">preorda.com/shop/</span><span class="url-slug" id="urlSlug">your-store</span>
+            <span class="url-domain">https://preorda.page.gd/view/products.php?store=</span><span class="url-slug" id="urlSlug">your-store</span>
             <button type="button" class="url-copy-btn" id="copyBtn" onclick="copyUrl()">Copy</button>
           </div>
           <div class="field-error" id="storeNameErr">Please enter a store name</div>
@@ -867,7 +867,7 @@
 
   // ── COPY URL
   function copyUrl() {
-    const url = `preorda.com/shop/${slugEl.textContent}`;
+    const url = `https://preorda.page.gd/view/products.php?store=${slugEl.textContent}`;
     navigator.clipboard?.writeText(url);
     const btn = document.getElementById('copyBtn');
     btn.textContent = 'Copied!';

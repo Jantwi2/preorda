@@ -130,7 +130,7 @@
             <div class="absolute -bottom-6 right-12 bg-zinc-900 rounded-3xl shadow-2xl border border-white/10 overflow-hidden w-80 hidden xl:block">
                 <div class="bg-black p-4">
                     <div class="flex justify-between items-center mb-4">
-                        <div class="text-xs text-zinc-400">yourstore.preorda.com</div>
+                        <div class="text-xs text-zinc-400">yourstore.preorda.page.gd</div>
                         <div class="px-3 py-1 bg-yellow-400 text-black text-xs font-semibold rounded-full">LIVE</div>
                     </div>
                     <div class="aspect-video bg-zinc-800 rounded-2xl mb-4 flex items-center justify-center">
