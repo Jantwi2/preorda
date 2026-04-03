@@ -8,8 +8,10 @@ class user_class extends db_connection
      * Checks if a user with the given email already exists in the 'users' table.
      */
     public function email_exists($email_address) {
-        $ndb = new db_connection(); 
-        $email = mysqli_real_escape_string($ndb->db_conn(), $email_address);
+        $conn = $ndb->db_conn();
+        if (!$conn) return false;
+        
+        $email = mysqli_real_escape_string($conn, $email_address);
 
         $sql = "SELECT user_id FROM users WHERE email = '$email' LIMIT 1";
         $this->db_query($sql);
@@ -23,15 +25,16 @@ class user_class extends db_connection
      */
     public function add_user($full_name, $email, $phone, $password, $country, $city, $user_type)
     {
-        $ndb = new db_connection(); 
+        $conn = $ndb->db_conn();
+        if (!$conn) return false;
 
         // Sanitize input variables and map to new column names
-        $name     = mysqli_real_escape_string($ndb->db_conn(), $full_name);
-        $email_safe    = mysqli_real_escape_string($ndb->db_conn(), $email);
-        $contact  = mysqli_real_escape_string($ndb->db_conn(), $phone);
-        $raw_password = mysqli_real_escape_string($ndb->db_conn(), $password);
-        $address  = mysqli_real_escape_string($ndb->db_conn(), $city . ", " . $country); // Combine into address
-        $role     = mysqli_real_escape_string($ndb->db_conn(), $user_type);
+        $name     = mysqli_real_escape_string($conn, $full_name);
+        $email_safe    = mysqli_real_escape_string($conn, $email);
+        $contact  = mysqli_real_escape_string($conn, $phone);
+        $raw_password = mysqli_real_escape_string($conn, $password);
+        $address  = mysqli_real_escape_string($conn, $city . ", " . $country); // Combine into address
+        $role     = mysqli_real_escape_string($conn, $user_type);
 
        
         if ($this->email_exists($email)) {

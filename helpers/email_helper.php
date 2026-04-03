@@ -132,7 +132,7 @@ function send_pending_approval_email($email, $name, $businessName) {
  */
 function send_account_approved_email($email, $name, $businessName) {
     $subject = 'Your Account Has Been Approved!';
-    $loginUrl = 'http://localhost:8888/preorda/view/login.php'; // Update with your actual URL
+    $loginUrl = 'https://preorda.page.gd/view/login.php'; 
     
     $body = load_email_template('account_approved.html', [
         'name' => $name,
@@ -155,7 +155,7 @@ function send_account_approved_email($email, $name, $businessName) {
  */
 function send_order_confirmation_email($email, $customerName, $orderId, $paymentReference, $orderTotal, $shippingAddress) {
     $subject = 'Order Confirmation - PreOrda';
-    $trackingUrl = 'http://localhost:8888/preorda/view/track.php?order_id=' . $orderId; // Update with your actual URL
+    $trackingUrl = 'https://preorda.page.gd/view/track.php?order_id=' . $orderId; 
     $supportEmail = REPLY_TO_EMAIL;
     
     $body = load_email_template('order_confirmation.html', [
@@ -181,7 +181,7 @@ function send_order_confirmation_email($email, $customerName, $orderId, $payment
  */
 function send_order_status_email($email, $customerName, $orderId, $newStatus) {
     $subject = "Order #$orderId Status Update - PreOrda";
-    $trackingUrl = 'http://localhost:8888/preorda/view/track.php?order_id=' . $orderId;
+    $trackingUrl = 'https://preorda.page.gd/view/track.php?order_id=' . $orderId;
     $supportEmail = REPLY_TO_EMAIL;
     
     // Custom message based on status

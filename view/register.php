@@ -1019,7 +1019,15 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
     })
-    .then(res => res.json())
+    .then(async res => {
+        const text = await res.text();
+        try {
+            return JSON.parse(text);
+        } catch (e) {
+            console.error('Server response was not JSON:', text);
+            throw new Error('Server returned an invalid response. This usually means a database connection error or PHP failure.');
+        }
+    })
     .then(result => {
         if (result.status === 'otp_sent') {
             if (result.otp) {
@@ -1042,7 +1050,8 @@
         }
     })
     .catch(error => {
-        alert('Network error. Please try again later.');
+        console.error('Registration error:', error);
+        alert(error.message || 'Network error. Please try again later.');
         btn.innerHTML = originalText;
         btn.disabled = false;
     });
