@@ -49,33 +49,54 @@ if (!$customer_user_id && !empty($conversations)) {
             --bg-color: #0C0C0C;
             --card-bg: #151515;
             --text-main: #f1f1f1;
-            --text-muted: #a0aec0;
+            --text-muted: #a1a1aa;
             --border-color: rgba(255, 255, 255, 0.05);
-            --success: #10b981;
-            --warning: #f59e0b;
-            --danger: #ef4444;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background-color: var(--bg-color); color: var(--text-main); display: flex; height: 100vh; overflow: hidden; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background-color: var(--bg-color); color: var(--text-main); display: flex; min-height: 100vh; }
 
-        /* Sidebar (Matching dashboard.php) */
-        .sidebar { width: 260px; background-color: var(--sidebar-bg); color: white; display: flex; flex-direction: column; flex-shrink: 0; border-right: 1px solid var(--border-color); }
-        .sidebar-header { padding: 24px; font-size: 24px; font-weight: 700; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; gap: 12px; }
-        .sidebar-header i { color: var(--primary-color); }
-        .nav-menu { padding: 20px 0; flex-grow: 1; }
-        .nav-item { padding: 12px 24px; display: flex; align-items: center; gap: 12px; color: #a1a1aa; text-decoration: none; transition: all 0.3s; }
-        .nav-item:hover { background-color: var(--sidebar-hover); color: var(--primary-color); }
-        .nav-item.active { background-color: var(--primary-color); color: #0C0C0C; }
-        .nav-item i { width: 20px; text-align: center; }
+        /* Sidebar Styles */
+        .sidebar {
+            position: fixed; left: 0; top: 0;
+            width: 260px; height: 100vh;
+            background: #0C0C0C; color: white;
+            padding: 20px; overflow-y: auto; z-index: 100;
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .logo { margin-bottom: 40px; display: flex; align-items: center; justify-content: center; }
+        .logo img { max-width: 180px; height: auto; }
+
+        .nav-item {
+            padding: 12px 16px; margin-bottom: 8px; border-radius: 8px;
+            display: flex; align-items: center; gap: 12px;
+            transition: background 0.2s; text-decoration: none; color: white;
+        }
+        .nav-item:hover { background: #1A1A1A; color: #C8FF00; }
+        .nav-item.active { background: #C8FF00; color: #0C0C0C; }
+        .nav-icon { width: 20px; height: 20px; }
 
         /* Main Content */
-        .main-content { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+        .main-content { margin-left: 260px; flex: 1; display: flex; flex-direction: column; min-height: 100vh; }
         
-        .header { background-color: var(--card-bg); padding: 16px 32px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; }
-        .header-title { font-size: 20px; font-weight: 600; }
-        .user-profile { display: flex; align-items: center; gap: 12px; }
-        .avatar { width: 40px; height: 40px; border-radius: 50%; background-color: #e0e7ff; color: var(--primary-color); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 16px; }
+        .dashboard-header {
+            background: #0C0C0C; padding: 15px 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .vendor-info { display: flex; align-items: center; gap: 15px; }
+        .vendor-name-text { font-size: 16px; font-weight: 600; color: #f1f1f1; }
+        .profile-photo-wrapper {
+            width: 40px; height: 40px; border-radius: 50%;
+            background: #1A1A1A; overflow: hidden;
+            display: flex; align-items: center; justify-content: center;
+            border: 2px solid #C8FF00;
+        }
+        .profile-photo-initials { font-size: 16px; font-weight: 700; color: #C8FF00; }
+
+        .action-icons { display: flex; gap: 20px; }
+        .action-icon { width: 24px; height: 24px; color: #a1a1aa; cursor: pointer; transition: color 0.2s; }
+        .action-icon:hover { color: #C8FF00; }
 
         /* Chat Specific Layout */
         .chat-container {
@@ -84,7 +105,6 @@ if (!$customer_user_id && !empty($conversations)) {
             margin: 24px 32px;
             background: var(--card-bg);
             border-radius: 12px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
             overflow: hidden;
             border: 1px solid var(--border-color);
         }
@@ -180,24 +200,86 @@ if (!$customer_user_id && !empty($conversations)) {
     </style>
 </head>
 <body>
-    <!-- Sidebar -->
-    <aside class="sidebar">
-        <div class="sidebar-header">
-            <i class="fas fa-store"></i>
-            <span>PreOrda</span>
+    <div class="sidebar">
+        <div class="logo">
+            <img src="../images/logo_c.png" alt="PreOrda">
         </div>
-        <nav class="nav-menu">
-            <a href="dashboard.php" class="nav-item"><i class="fas fa-home"></i> Dashboard</a>
-            <a href="products.php" class="nav-item"><i class="fas fa-box"></i> Products</a>
-            <a href="brandcatmgt.php" class="nav-item"><i class="fas fa-tags"></i> Brands/Categories</a>
-            <a href="orders.php" class="nav-item"><i class="fas fa-shopping-cart"></i> Orders</a>
-            <a href="chat.php" class="nav-item active"><i class="fas fa-comments"></i> Messages</a>
-        </nav>
-    </aside>
+        <a href="dashboard.php" class="nav-item">
+            <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+            </svg>
+            <span>Overview</span>
+        </a>
+        <a href="products.php" class="nav-item">
+            <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+            </svg>
+            <span>Products</span>
+        </a>
+        <a href="orders.php" class="nav-item">
+            <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+            </svg>
+            <span>Orders</span>
+        </a>
+        <a href="customers.php" class="nav-item">
+            <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+            </svg>
+            <span>Customers</span>
+        </a>
+        <a href="brandcatmgt.php" class="nav-item">
+            <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+            </svg>
+            <span>Brands & Categories</span>
+        </a>
+        <a href="chat.php" class="nav-item active">
+            <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
+            </svg>
+            <span>Messages</span>
+        </a>
+        <a href="settings.php" class="nav-item">
+            <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            </svg>
+            <span>Settings</span>
+        </a>
+        <div style="margin-top: auto; padding-top: 20px; border-top: 1px solid #2d3748;">
+            <a href="../actions/logout.php" class="nav-item" style="color: #fc8181;">
+                <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                </svg>
+                <span>Logout</span>
+            </a>
+        </div>
+    </div>
 
-    <!-- Main Content -->
-    <main class="main-content">
-        <header class="header">
+    <div class="main-content">
+        <header class="dashboard-header">
+            <div class="vendor-info">
+                <div class="profile-photo-wrapper">
+                    <span class="profile-photo-initials"><?php 
+                    $name_parts = explode(' ', $_SESSION['full_name'] ?? 'Vendor');
+                    echo strtoupper(substr($name_parts[0], 0, 1) . (isset($name_parts[1]) ? substr($name_parts[1], 0, 1) : ''));
+                    ?></span>
+                </div>
+                <span class="vendor-name-text"><?php echo htmlspecialchars($_SESSION['business_name'] ?? 'My Store'); ?></span>
+            </div>
+            <div class="action-icons">
+                <svg class="action-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.16 6 8.356 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
+                </svg>
+                <a href="settings.php" style="color: inherit;">
+                    <svg class="action-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
+                </a>
+            </div>
+        </header>
             <div class="header-title">Customer Messages</div>
             <div class="user-profile">
                 <span style="font-size: 14px; font-weight: 500;"><?php echo htmlspecialchars($_SESSION['user_name']); ?></span>
