@@ -4,8 +4,8 @@ session_start();
 // This controller file must contain the definitions for add_user_ctr and add_vendor_ctr
 require(__DIR__ . "/../controllers/user_controller.php");
 error_reporting(E_ALL);
-ini_set('display_errors', 0); // Don't display errors in output
-ini_set('log_errors', 1); // Log errors instead
+ini_set('display_errors', 1); 
+ini_set('log_errors', 1); 
 
 header('Content-Type: application/json');
 
