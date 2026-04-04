@@ -10,7 +10,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600&display=swap');
 
         :root {
-            --primary: 234 179 8;
+            --primary: 200 255 0;
         }
 
         * {
@@ -21,7 +21,7 @@
 
         body {
             font-family: 'Inter', system_ui, sans-serif;
-            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+            background: #0C0C0C;
             color: #f1f1f1;
             min-height: 100vh;
             overflow: hidden;
@@ -39,7 +39,7 @@
         }
 
         .gradient-text {
-            background: linear-gradient(90deg, #facc15, #eab308);
+            background: #C8FF00;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -54,7 +54,7 @@
         }
 
         .hero-bg {
-            background: radial-gradient(circle at 30% 20%, rgba(234, 179, 8, 0.15) 0%, transparent 50%);
+            background: radial-gradient(circle at 30% 20%, rgba(200, 255, 0, 0.1) 0%, transparent 50%);
         }
     </style>
 </head>
@@ -69,7 +69,7 @@
 
             <div class="p-12 relative z-10">
                 <div class="flex items-center gap-3">
-                    <div class="w-9 h-9 bg-yellow-400 rounded-2xl flex items-center justify-center">
+                    <div class="w-9 h-9 bg-[#C8FF00] rounded-2xl flex items-center justify-center">
                         <i class="fa-solid fa-box text-black text-xl"></i>
                     </div>
                     <div class="logo-font text-4xl font-semibold tracking-tighter text-white">PreOrda</div>
@@ -127,20 +127,20 @@
             </div>
 
             <!-- Floating product mockup -->
-            <div class="absolute -bottom-6 right-12 bg-zinc-900 rounded-3xl shadow-2xl border border-white/10 overflow-hidden w-80 hidden xl:block">
+            <div class="absolute -bottom-6 right-12 bg-[#0C0C0C] rounded-3xl shadow-2xl border border-white/10 overflow-hidden w-80 hidden xl:block">
                 <div class="bg-black p-4">
                     <div class="flex justify-between items-center mb-4">
                         <div class="text-xs text-zinc-400">yourstore.lightgoldenrodyellow-dove-201674.hostingersite.com</div>
-                        <div class="px-3 py-1 bg-yellow-400 text-black text-xs font-semibold rounded-full">LIVE</div>
+                        <div class="px-3 py-1 bg-[#C8FF00] text-black text-xs font-semibold rounded-full">LIVE</div>
                     </div>
-                    <div class="aspect-video bg-zinc-800 rounded-2xl mb-4 flex items-center justify-center">
+                    <div class="aspect-video bg-[#151515] rounded-2xl mb-4 flex items-center justify-center">
                         <div class="text-center">
                             <i class="fa-solid fa-shirt text-6xl text-zinc-700 mb-3"></i>
                             <p class="text-xs text-zinc-500">Custom Sneakers Pre-order</p>
                         </div>
                     </div>
                     <div class="flex gap-3">
-                        <div class="flex-1 h-2 bg-yellow-400 rounded-full"></div>
+                        <div class="flex-1 h-2 bg-[#C8FF00] rounded-full"></div>
                         <div class="flex-1 h-2 bg-white/20 rounded-full"></div>
                     </div>
                 </div>
@@ -154,7 +154,7 @@
                 <!-- Header -->
                 <div class="mb-10">
                     <div class="flex items-center gap-3 mb-8 lg:hidden">
-                        <div class="w-8 h-8 bg-yellow-400 rounded-2xl flex items-center justify-center">
+                        <div class="w-8 h-8 bg-[#C8FF00] rounded-2xl flex items-center justify-center">
                             <i class="fa-solid fa-box text-black"></i>
                         </div>
                         <div class="logo-font text-3xl font-semibold tracking-tighter">PreOrda</div>
@@ -182,7 +182,7 @@
                             <input 
                                 type="email" 
                                 id="loginEmail"
-                                class="input-focus w-full bg-white/5 border border-white/10 focus:border-yellow-400 text-white placeholder-zinc-500 rounded-2xl py-4 pl-12 pr-6 text-base outline-none transition-all"
+                                class="input-focus w-full bg-white/5 border border-white/10 focus:border-[#C8FF00] text-white placeholder-zinc-500 rounded-2xl py-4 pl-12 pr-6 text-base outline-none transition-all"
                                 placeholder="you@yourbusiness.com"
                                 required>
                         </div>
@@ -195,7 +195,7 @@
                     <div>
                         <div class="flex justify-between items-center mb-2.5">
                             <label class="text-sm font-medium text-zinc-400">Password</label>
-                            <a href="#" class="text-xs text-yellow-400 hover:text-yellow-300 transition-colors">Forgot password?</a>
+                            <a href="#" class="text-xs text-[#C8FF00] hover:text-[#C8FF00] transition-colors">Forgot password?</a>
                         </div>
                         <div class="relative">
                             <div class="absolute left-5 top-1/2 -translate-y-1/2 text-zinc-500">
@@ -204,7 +204,7 @@
                             <input 
                                 type="password" 
                                 id="loginPassword"
-                                class="input-focus w-full bg-white/5 border border-white/10 focus:border-yellow-400 text-white placeholder-zinc-500 rounded-2xl py-4 pl-12 pr-6 text-base outline-none transition-all"
+                                class="input-focus w-full bg-white/5 border border-white/10 focus:border-[#C8FF00] text-white placeholder-zinc-500 rounded-2xl py-4 pl-12 pr-6 text-base outline-none transition-all"
                                 placeholder="••••••••••••"
                                 required>
                             <button type="button" onclick="togglePassword()" class="absolute right-5 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-white">
@@ -219,7 +219,7 @@
                     <!-- Sign In Button -->
                     <button 
                         type="submit"
-                        class="w-full bg-yellow-400 hover:bg-yellow-300 active:bg-yellow-500 transition-all text-black font-semibold text-base py-4.5 rounded-2xl flex items-center justify-center gap-3 shadow-lg shadow-yellow-400/30">
+                        class="w-full bg-[#C8FF00] hover:bg-[#E1FF4D] active:bg-yellow-500 transition-all text-black font-semibold text-base py-4.5 rounded-2xl flex items-center justify-center gap-3 shadow-lg shadow-[#C8FF00]/30">
                         <span>Sign in to dashboard</span>
                         <i class="fa-solid fa-arrow-right"></i>
                     </button>
@@ -249,7 +249,7 @@
                 <div class="text-center mt-10">
                     <p class="text-zinc-400 text-sm">
                         Don't have a store yet? 
-                        <a href="register.php" class="text-yellow-400 hover:text-yellow-300 font-semibold transition-colors">Create your PreOrda store →</a>
+                        <a href="register.php" class="text-[#C8FF00] hover:text-[#C8FF00] font-semibold transition-colors">Create your PreOrda store →</a>
                     </p>
                 </div>
 
