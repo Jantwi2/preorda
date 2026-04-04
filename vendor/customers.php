@@ -65,7 +65,7 @@ if (count($name_parts) >= 2) {
         }
 
         .logo { margin-bottom: 40px; display: flex; align-items: center; justify-content: center; }
-        .logo img { max-width: 160px; height: auto; }
+        .logo img { max-width: 180px; height: auto; }
 
         .nav-item {
             padding: 12px 16px;
@@ -109,7 +109,7 @@ if (count($name_parts) >= 2) {
 
         .action-icons { display: flex; gap: 20px; }
         .action-icon { width: 24px; height: 24px; color: #64748b; cursor: pointer; transition: color 0.2s; }
-        .action-icon:hover { color: #3b82f6; }
+        .action-icon:hover { color: #C8FF00; }
 
         .page-content-wrapper { padding: 40px; flex: 1; display: flex; flex-direction: column; gap: 30px; }
 

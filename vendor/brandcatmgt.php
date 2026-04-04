@@ -125,7 +125,7 @@ $brands = get_all_brands_ctr();
         .vendor-name-text {
             font-size: 16px;
             font-weight: 600;
-            color: #2d3748;
+            color: #f1f1f1;
         }
 
         .profile-photo-wrapper {
