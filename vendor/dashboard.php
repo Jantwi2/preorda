@@ -694,7 +694,7 @@ $recent_orders = get_vendor_recent_orders_ctr($vendor_id);
 
     <script>
         function copyStoreUrl() {
-            const url = 'https://preorda.page.gd/view/products.php?store=...';
+            const url = 'https://lightgoldenrodyellow-dove-201674.hostingersite.com/view/products.php?store=...';
             navigator.clipboard.writeText(url).then(() => {
                 const btn = event.target;
                 btn.textContent = 'Copied!';

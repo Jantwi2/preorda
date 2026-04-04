@@ -1,8 +1,8 @@
 <?php
 //Database credentials
 
-define("SERVER", "sql211.infinityfree.com");   
-define("USERNAME", "if0_41570830");      
-define('PASSWD', 'lR4nGHZdIzeq');           
-define("DATABASE", "if0_41570830_preorda");       
+define("SERVER", "localhost");   
+define("USERNAME", "u550713080_preorda");      
+define('PASSWD', 'u550713080_Preorda');           
+define("DATABASE", "u550713080_preorda");       
 ?>
