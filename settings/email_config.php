@@ -17,16 +17,10 @@ define('FROM_NAME', 'PreOrda'); // From name
 define('REPLY_TO_EMAIL', 'jemimaantwi47@gmail.com'); // Reply-to email
 
 // OTP Settings
+ini_set('display_errors', 0);
 define('OTP_LENGTH', 6); // Length of OTP code
 define('OTP_EXPIRY_MINUTES', 15); // OTP expiry time in minutes
 
 // Email Templates Directory
 define('EMAIL_TEMPLATES_DIR', __DIR__ . '/../templates/emails/');
-
-<?php
-session_start();
-error_reporting(E_ALL);
-ini_set('display_errors', 0);
-require_once(__DIR__ . '/../controllers/user_controller.php');
-require_once(__DIR__ . '/../helpers/email_helper.php');
 ?>
