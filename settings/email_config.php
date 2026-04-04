@@ -5,10 +5,10 @@
  */
 
 // SMTP Settings
-define('SMTP_HOST', 'smtp.hostinger.com'); 
+define('SMTP_HOST', 'smtp.gmail.com'); 
 define('SMTP_PORT', 465); 
-define('SMTP_USERNAME', 'support@yourdomain.com'); // Update with your Hostinger email
-define('SMTP_PASSWORD', 'your_email_password'); // Update with your Hostinger email password
+define('SMTP_USERNAME', 'jemimaantwi47@gmail.com'); 
+define('SMTP_PASSWORD', 'wlvc kgbf dgne zlep'); 
 define('SMTP_SECURE', 'ssl'); 
 
 // Email Settings
