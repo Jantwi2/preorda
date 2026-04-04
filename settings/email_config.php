@@ -5,11 +5,11 @@
  */
 
 // SMTP Settings
-define('SMTP_HOST', 'smtp.gmail.com'); // Change to your SMTP host
-define('SMTP_PORT', 465); // Use 465 for SSL (more reliable with Gmail)
-define('SMTP_USERNAME', 'jemimaantwi47@gmail.com'); // Your email address
-define('SMTP_PASSWORD', 'wlvc kgbf dgne zlep'); // Your email password or app password
-define('SMTP_SECURE', 'ssl'); // Use 'ssl' for port 465
+define('SMTP_HOST', 'smtp.hostinger.com'); 
+define('SMTP_PORT', 465); 
+define('SMTP_USERNAME', 'support@yourdomain.com'); // Update with your Hostinger email
+define('SMTP_PASSWORD', 'your_email_password'); // Update with your Hostinger email password
+define('SMTP_SECURE', 'ssl'); 
 
 // Email Settings
 define('FROM_EMAIL', 'jemimaantwi47@gmail.com'); // From email address
@@ -22,4 +22,11 @@ define('OTP_EXPIRY_MINUTES', 15); // OTP expiry time in minutes
 
 // Email Templates Directory
 define('EMAIL_TEMPLATES_DIR', __DIR__ . '/../templates/emails/');
+
+<?php
+session_start();
+error_reporting(E_ALL);
+ini_set('display_errors', 0);
+require_once(__DIR__ . '/../controllers/user_controller.php');
+require_once(__DIR__ . '/../helpers/email_helper.php');
 ?>
