@@ -42,15 +42,15 @@ if (!$customer_user_id && !empty($conversations)) {
     <!-- Include the dashboard master layout CSS file, for now inline the structure -->
     <style>
         :root {
-            --primary-color: #4f46e5;
-            --primary-hover: #4338ca;
-            --sidebar-bg: #1e1e2d;
-            --sidebar-hover: #2b2b40;
-            --bg-color: #f3f4f6;
-            --card-bg: #ffffff;
-            --text-main: #111827;
-            --text-muted: #6b7280;
-            --border-color: #e5e7eb;
+            --primary-color: #C8FF00;
+            --primary-hover: #E1FF4D;
+            --sidebar-bg: #0C0C0C;
+            --sidebar-hover: #1A1A1A;
+            --bg-color: #0C0C0C;
+            --card-bg: #151515;
+            --text-main: #f1f1f1;
+            --text-muted: #a0aec0;
+            --border-color: rgba(255, 255, 255, 0.05);
             --success: #10b981;
             --warning: #f59e0b;
             --danger: #ef4444;
@@ -60,12 +60,13 @@ if (!$customer_user_id && !empty($conversations)) {
         body { font-family: 'Inter', sans-serif; background-color: var(--bg-color); color: var(--text-main); display: flex; height: 100vh; overflow: hidden; }
 
         /* Sidebar (Matching dashboard.php) */
-        .sidebar { width: 260px; background-color: var(--sidebar-bg); color: white; display: flex; flex-direction: column; flex-shrink: 0; }
-        .sidebar-header { padding: 24px; font-size: 24px; font-weight: 700; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; gap: 12px; }
+        .sidebar { width: 260px; background-color: var(--sidebar-bg); color: white; display: flex; flex-direction: column; flex-shrink: 0; border-right: 1px solid var(--border-color); }
+        .sidebar-header { padding: 24px; font-size: 24px; font-weight: 700; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; gap: 12px; }
         .sidebar-header i { color: var(--primary-color); }
         .nav-menu { padding: 20px 0; flex-grow: 1; }
         .nav-item { padding: 12px 24px; display: flex; align-items: center; gap: 12px; color: #a1a1aa; text-decoration: none; transition: all 0.3s; }
-        .nav-item:hover, .nav-item.active { background-color: var(--sidebar-hover); color: white; }
+        .nav-item:hover { background-color: var(--sidebar-hover); color: var(--primary-color); }
+        .nav-item.active { background-color: var(--primary-color); color: #0C0C0C; }
         .nav-item i { width: 20px; text-align: center; }
 
         /* Main Content */
@@ -123,7 +124,7 @@ if (!$customer_user_id && !empty($conversations)) {
             display: flex;
             flex-direction: column;
             gap: 16px;
-            background: #f8fafc;
+            background: #0C0C0C;
         }
 
         .message {
@@ -136,7 +137,7 @@ if (!$customer_user_id && !empty($conversations)) {
         }
 
         .message.received { background: var(--card-bg); border: 1px solid var(--border-color); align-self: flex-start; border-bottom-left-radius: 0; }
-        .message.sent { background: var(--primary-color); color: white; align-self: flex-end; border-bottom-right-radius: 0; }
+        .message.sent { background: var(--primary-color); color: #0C0C0C; align-self: flex-end; border-bottom-right-radius: 0; font-weight: 500; }
         .message-time { font-size: 11px; margin-top: 4px; opacity: 0.7; display: block; text-align: right; }
 
         .chat-input-area {
@@ -200,7 +201,7 @@ if (!$customer_user_id && !empty($conversations)) {
             <div class="header-title">Customer Messages</div>
             <div class="user-profile">
                 <span style="font-size: 14px; font-weight: 500;"><?php echo htmlspecialchars($_SESSION['user_name']); ?></span>
-                <div class="avatar" style="width: 35px; height: 35px; font-size: 14px;">
+                <div class="avatar" style="width: 35px; height: 35px; font-size: 14px; background: #1A1A1A; border: 1px solid var(--primary-color); color: var(--primary-color);">
                     <?php echo substr($_SESSION['user_name'], 0, 1); ?>
                 </div>
             </div>

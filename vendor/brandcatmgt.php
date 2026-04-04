@@ -41,8 +41,8 @@ $brands = get_all_brands_ctr();
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: #f5f7fa;
-            color: #2d3748;
+            background: #0C0C0C;
+            color: #f1f1f1;
         }
 
         /* --- Global Layout Styles (Copied from vendor_setting.php) --- */
@@ -52,11 +52,12 @@ $brands = get_all_brands_ctr();
             top: 0;
             width: 260px;
             height: 100vh;
-            background: #1a202c;
+            background: #0C0C0C;
             color: white;
             padding: 20px;
             overflow-y: auto;
             z-index: 100;
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .logo {
@@ -84,11 +85,13 @@ $brands = get_all_brands_ctr();
         }
 
         .nav-item:hover {
-            background: #2d3748;
+            background: #1A1A1A;
+            color: #C8FF00;
         }
-
+        
         .nav-item.active {
-            background: #2b6cb0;
+            background: #C8FF00;
+            color: #0C0C0C;
         }
 
         .nav-icon {
@@ -102,16 +105,15 @@ $brands = get_all_brands_ctr();
         }
         
         .dashboard-header {
-            background: white;
+            background: #0C0C0C;
             padding: 15px 30px;
-            border-bottom: 1px solid #e2e8f0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             display: flex;
             justify-content: space-between;
             align-items: center;
             position: sticky;
             top: 0;
             z-index: 50;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
 
         .vendor-info {
@@ -130,19 +132,19 @@ $brands = get_all_brands_ctr();
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            background: #e2e8f0;
+            background: #1A1A1A;
             overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 2px solid #3182ce;
+            border: 2px solid #C8FF00;
             cursor: pointer;
         }
 
         .profile-photo-initials {
             font-size: 16px;
             font-weight: 700;
-            color: #3182ce;
+            color: #C8FF00;
         }
 
         .action-icons {
@@ -167,11 +169,12 @@ $brands = get_all_brands_ctr();
         }
         
         .header {
-            background: white;
+            background: #151515;
             padding: 24px 30px;
             border-radius: 12px;
             margin-bottom: 30px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.05);
         }
 
         .header h1 {
@@ -194,44 +197,45 @@ $brands = get_all_brands_ctr();
         }
 
         .management-card {
-            background: white;
+            background: #151515;
             border-radius: 12px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
             overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.05);
         }
 
         .card-header {
             padding: 20px;
-            border-bottom: 1px solid #e2e8f0;
+            border-bottom: 1px solid #2d3748;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: #f8fafc;
+            background: #111111;
         }
 
         .card-title {
             font-size: 18px;
             font-weight: 600;
-            color: #2d3748;
+            color: #f1f1f1;
         }
 
         .btn-add {
-            background: #3182ce;
-            color: white;
+            background: #C8FF00;
+            color: #0C0C0C;
             border: none;
             padding: 8px 16px;
             border-radius: 6px;
             cursor: pointer;
             font-size: 14px;
-            font-weight: 500;
-            transition: background 0.2s;
+            font-weight: 600;
+            transition: all 0.2s;
             display: flex;
             align-items: center;
             gap: 6px;
         }
 
         .btn-add:hover {
-            background: #2c5282;
+            background: #E1FF4D;
         }
 
         .list-container {
@@ -241,7 +245,7 @@ $brands = get_all_brands_ctr();
 
         .list-item {
             padding: 15px 20px;
-            border-bottom: 1px solid #e2e8f0;
+            border-bottom: 1px solid #2d3748;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -253,12 +257,12 @@ $brands = get_all_brands_ctr();
         }
 
         .list-item:hover {
-            background: #f7fafc;
+            background: #1A1A1A;
         }
 
         .item-name {
             font-weight: 500;
-            color: #4a5568;
+            color: #f1f1f1;
         }
 
         .item-actions {

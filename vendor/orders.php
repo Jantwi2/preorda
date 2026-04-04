@@ -39,8 +39,8 @@ $orders = get_vendor_orders_ctr($_SESSION['vendor_id']);
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: #f5f7fa;
-            color: #2d3748;
+            background: #0C0C0C;
+            color: #f1f1f1;
         }
 
         /* --- Global Layout Styles --- */
@@ -50,11 +50,12 @@ $orders = get_vendor_orders_ctr($_SESSION['vendor_id']);
             top: 0;
             width: 260px;
             height: 100vh;
-            background: #1a202c;
+            background: #0C0C0C;
             color: white;
             padding: 20px;
             overflow-y: auto;
             z-index: 100;
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .logo {
@@ -82,11 +83,13 @@ $orders = get_vendor_orders_ctr($_SESSION['vendor_id']);
         }
 
         .nav-item:hover {
-            background: #2d3748;
+            background: #1A1A1A;
+            color: #C8FF00;
         }
-
+        
         .nav-item.active {
-            background: #2b6cb0;
+            background: #C8FF00;
+            color: #0C0C0C;
         }
 
         .nav-icon {
@@ -100,16 +103,15 @@ $orders = get_vendor_orders_ctr($_SESSION['vendor_id']);
         }
         
         .dashboard-header {
-            background: white;
+            background: #0C0C0C;
             padding: 15px 30px;
-            border-bottom: 1px solid #e2e8f0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             display: flex;
             justify-content: space-between;
             align-items: center;
             position: sticky;
             top: 0;
             z-index: 50;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
 
         .vendor-info {
@@ -121,26 +123,26 @@ $orders = get_vendor_orders_ctr($_SESSION['vendor_id']);
         .vendor-name-text {
             font-size: 16px;
             font-weight: 600;
-            color: #2d3748;
+            color: #f1f1f1;
         }
 
         .profile-photo-wrapper {
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            background: #e2e8f0;
+            background: #1A1A1A;
             overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 2px solid #3182ce;
+            border: 2px solid #C8FF00;
             cursor: pointer;
         }
 
         .profile-photo-initials {
             font-size: 16px;
             font-weight: 700;
-            color: #3182ce;
+            color: #C8FF00;
         }
 
         .action-icons {
@@ -157,7 +159,7 @@ $orders = get_vendor_orders_ctr($_SESSION['vendor_id']);
         }
         
         .action-icon:hover {
-            color: #3182ce;
+            color: #C8FF00;
         }
         
         .page-content-wrapper {
@@ -165,17 +167,19 @@ $orders = get_vendor_orders_ctr($_SESSION['vendor_id']);
         }
         
         .header {
-            background: white;
+            background: #151515;
             padding: 24px 30px;
             border-radius: 12px;
             margin-bottom: 30px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.05);
         }
-
+        
         .header h1 {
             font-size: 28px;
             font-weight: 600;
             margin-bottom: 8px;
+            color: #f1f1f1;
         }
 
         .header-subtitle {
@@ -185,9 +189,10 @@ $orders = get_vendor_orders_ctr($_SESSION['vendor_id']);
 
         /* --- Table Styles --- */
         .table-container {
-            background: white;
+            background: #151515;
             border-radius: 12px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.05);
             overflow: hidden;
         }
 
@@ -197,19 +202,19 @@ $orders = get_vendor_orders_ctr($_SESSION['vendor_id']);
         }
 
         th {
-            background: #f8fafc;
+            background: #111111;
             padding: 16px 24px;
             text-align: left;
             font-weight: 600;
-            color: #4a5568;
-            border-bottom: 1px solid #e2e8f0;
+            color: #a0aec0;
+            border-bottom: 1px solid #2d3748;
             font-size: 14px;
         }
 
         td {
             padding: 16px 24px;
-            border-bottom: 1px solid #e2e8f0;
-            color: #2d3748;
+            border-bottom: 1px solid #2d3748;
+            color: #f1f1f1;
             font-size: 14px;
         }
 
@@ -218,7 +223,7 @@ $orders = get_vendor_orders_ctr($_SESSION['vendor_id']);
         }
 
         tr:hover {
-            background: #f7fafc;
+            background: #1A1A1A;
         }
 
         .status-badge {
