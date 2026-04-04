@@ -16,6 +16,7 @@ use PHPMailer\PHPMailer\Exception;
  */
 function send_email($to, $subject, $body, $altBody = '') {
     $mail = new PHPMailer(true);
+    global $last_email_error;
 
     try {
         // Server settings
@@ -26,6 +27,7 @@ function send_email($to, $subject, $body, $altBody = '') {
         $mail->Password = SMTP_PASSWORD;
         $mail->SMTPSecure = SMTP_SECURE;
         $mail->Port = SMTP_PORT;
+        $mail->SMTPDebug = 0; // Set to 2 for verbose debug in error_log
 
         // Recipients
         $mail->setFrom(FROM_EMAIL, FROM_NAME);
@@ -41,6 +43,7 @@ function send_email($to, $subject, $body, $altBody = '') {
         $mail->send();
         return true;
     } catch (Exception $e) {
+        $last_email_error = $mail->ErrorInfo;
         error_log("Email sending failed: {$mail->ErrorInfo}");
         return false;
     }

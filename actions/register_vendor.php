@@ -89,13 +89,13 @@ try {
             ]);
         } else {
             // Email failed - provide OTP in response for development
-            error_log("Failed to send OTP email to $email. OTP: $otp");
+            global $last_email_error;
+            error_log("Failed to send OTP email to $email. Error: $last_email_error");
             echo json_encode([
                 'status' => 'otp_sent',
-                'message' => 'Email service not configured. Your OTP is: ' . $otp,
-                'otp' => $otp, // Only for development - remove in production!
-                'user_id' => $user_id,
-                'note' => 'Please install PHPMailer to enable email functionality'
+                'message' => 'Email error: ' . $last_email_error . '. Your OTP is: ' . $otp,
+                'otp' => $otp,
+                'user_id' => $user_id
             ]);
         }
     } else {
