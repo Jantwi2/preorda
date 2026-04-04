@@ -50,8 +50,8 @@ if (count($name_parts) >= 2) {
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: #f8fafc;
-            color: #1e293b;
+            background: #0C0C0C;
+            color: #f1f1f1;
             min-height: 100vh;
         }
 
@@ -59,8 +59,9 @@ if (count($name_parts) >= 2) {
         .sidebar {
             position: fixed; left: 0; top: 0;
             width: 260px; height: 100vh;
-            background: #0f172a; color: white;
+            background: #0C0C0C; color: white;
             padding: 20px; overflow-y: auto; z-index: 100;
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .logo { margin-bottom: 40px; display: flex; align-items: center; justify-content: center; }
@@ -71,24 +72,24 @@ if (count($name_parts) >= 2) {
             display: flex; align-items: center; gap: 12px;
             transition: all 0.2s ease; text-decoration: none; color: #94a3b8; font-weight: 600;
         }
-        .nav-item:hover { background: #1e293b; color: white; }
-        .nav-item.active { background: #3b82f6; color: white; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3); }
-        .nav-icon { width: 20px; height: 20px; }
+        .nav-item:hover { background: #1A1A1A; color: #C8FF00; }
+        .nav-item.active { background: #C8FF00; color: #0C0C0C; box-shadow: 0 4px 12px rgba(200, 255, 0, 0.2); }
+        .nav-icon { width: 22px; height: 22px; }
 
         .main-content { margin-left: 260px; min-height: 100vh; display: flex; flex-direction: column; }
         
         .dashboard-header {
-            background: white; padding: 20px 40px; border-bottom: 1px solid #e2e8f0;
+            background: #0C0C0C; padding: 20px 40px; border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             display: flex; justify-content: space-between; align-items: center;
-            position: sticky; top: 0; z-index: 50; box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+            position: sticky; top: 0; z-index: 50;
         }
 
         .vendor-info { display: flex; align-items: center; gap: 15px; }
-        .vendor-name-text { font-size: 16px; font-weight: 700; color: #0f172a; }
+        .vendor-name-text { font-size: 16px; font-weight: 700; color: #f1f1f1; }
         .profile-photo-wrapper {
             width: 44px; height: 44px; border-radius: 50%;
-            background: #f1f5f9; display: flex; align-items: center; justify-content: center;
-            border: 2px solid #3b82f6; color: #3b82f6; font-weight: 800;
+            background: #1A1A1A; display: flex; align-items: center; justify-content: center;
+            border: 2px solid #C8FF00; color: #C8FF00; font-weight: 800;
         }
 
         .action-icons { display: flex; gap: 20px; }
@@ -105,14 +106,14 @@ if (count($name_parts) >= 2) {
         }
 
         .stat-card {
-            background: white;
+            background: #151515;
             border-radius: 20px;
             padding: 30px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
             display: flex;
             align-items: center;
             gap: 20px;
-            border: 1px solid #e2e8f0;
+            border: 1px solid rgba(255,255,255,0.05);
         }
 
         .stat-icon {
@@ -122,19 +123,19 @@ if (count($name_parts) >= 2) {
             font-size: 28px;
         }
         
-        .stat-icon.blue { background: #eff6ff; color: #3b82f6; }
-        .stat-icon.green { background: #f0fdf4; color: #22c55e; }
-        .stat-icon.purple { background: #faf5ff; color: #a855f7; }
+        .stat-icon.blue { background: rgba(59, 130, 246, 0.1); color: #3b82f6; }
+        .stat-icon.green { background: rgba(34, 197, 94, 0.1); color: #22c55e; }
+        .stat-icon.purple { background: rgba(168, 85, 247, 0.1); color: #a855f7; }
 
         .stat-details h3 { font-size: 13px; font-weight: 700; text-transform: uppercase; color: #64748b; letter-spacing: 0.5px; margin-bottom: 5px; }
-        .stat-details .value { font-size: 28px; font-weight: 900; color: #0f172a; line-height: 1; }
+        .stat-details .value { font-size: 28px; font-weight: 900; color: #C8FF00; line-height: 1; }
 
         /* Customer Table Container */
         .crm-container {
-            background: white;
+            background: #151515;
             border-radius: 20px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
-            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.05);
             overflow: hidden;
             display: flex;
             flex-direction: column;
@@ -142,23 +143,24 @@ if (count($name_parts) >= 2) {
 
         .crm-toolbar {
             padding: 25px 30px;
-            border-bottom: 1px solid #e2e8f0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: #f8fafc;
+            background: #111111;
         }
 
-        .crm-toolbar h2 { font-size: 18px; font-weight: 800; color: #0f172a; }
+        .crm-toolbar h2 { font-size: 18px; font-weight: 800; color: #f1f1f1; }
 
         .search-container { position: relative; width: 350px; }
         .search-input {
             width: 100%; padding: 12px 16px 12px 45px;
-            border: 2px solid #e2e8f0; border-radius: 12px;
+            border: 2px solid #2d3748; border-radius: 12px;
+            background: #0C0C0C; color: #f1f1f1;
             font-size: 14px; font-weight: 500; transition: all 0.2s;
             outline: none;
         }
-        .search-input:focus { border-color: #3b82f6; box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1); }
+        .search-input:focus { border-color: #C8FF00; box-shadow: 0 0 0 4px rgba(200, 255, 0, 0.1); }
         .search-icon-inside {
             position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
             width: 20px; height: 20px; color: #94a3b8;
@@ -166,27 +168,27 @@ if (count($name_parts) >= 2) {
 
         table { width: 100%; border-collapse: collapse; text-align: left; }
         th {
-            background: white; padding: 20px 30px;
+            background: #111111; padding: 20px 30px;
             font-size: 12px; font-weight: 800; color: #64748b;
             text-transform: uppercase; letter-spacing: 1px;
-            border-bottom: 2px solid #e2e8f0;
+            border-bottom: 2px solid #2d3748;
         }
-        td { padding: 20px 30px; border-bottom: 1px solid #f1f5f9; vertical-align: middle; }
-        tr:hover td { background: #f8fafc; }
+        td { padding: 20px 30px; border-bottom: 1px solid #2d3748; vertical-align: middle; color: #f1f1f1; }
+        tr:hover td { background: #1A1A1A; }
         tr:last-child td { border-bottom: none; }
 
         /* CRM Features Styles */
         .customer-profile { display: flex; align-items: center; gap: 15px; }
         .avatar {
             width: 44px; height: 44px; border-radius: 12px;
-            background: #e2e8f0; display: flex; align-items: center; justify-content: center;
-            font-weight: 800; color: #475569; font-size: 16px;
+            background: #1A1A1A; display: flex; align-items: center; justify-content: center;
+            font-weight: 800; color: #C8FF00; font-size: 16px; border: 1px solid rgba(200, 255, 0, 0.1);
         }
-        .info-name { font-weight: 700; color: #0f172a; font-size: 15px; display: block; margin-bottom: 2px; }
+        .info-name { font-weight: 700; color: #f1f1f1; font-size: 15px; display: block; margin-bottom: 2px; }
         .info-email { font-size: 13px; color: #64748b; font-weight: 500; }
 
         .metric-block { display: flex; flex-direction: column; gap: 4px; }
-        .metric-val { font-size: 16px; font-weight: 800; color: #0f172a; }
+        .metric-val { font-size: 16px; font-weight: 800; color: #C8FF00; }
         .metric-sub { font-size: 12px; color: #64748b; font-weight: 600; text-transform: uppercase; }
 
         .badge {
