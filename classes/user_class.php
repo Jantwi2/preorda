@@ -7,6 +7,7 @@ class user_class extends db_connection
     /**
      * Checks if a user with the given email already exists in the 'users' table.
      */
+    public function email_exists($email_address) {
         $ndb = new db_connection(); 
         $conn = $ndb->db_conn();
         if (!$conn) return false;
@@ -23,6 +24,8 @@ class user_class extends db_connection
      * Registers a new user into the 'users' table.
      * Returns the new user_id on success, "duplicate" if email exists, or false on failure.
      */
+    public function add_user($full_name, $email, $phone, $password, $country, $city, $user_type)
+    {
         $ndb = new db_connection(); 
         $conn = $ndb->db_conn();
         if (!$conn) return false;
