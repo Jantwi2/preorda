@@ -68,13 +68,28 @@ if (count($name_parts) >= 2) {
         .logo img { max-width: 160px; height: auto; }
 
         .nav-item {
-            padding: 14px 20px; margin-bottom: 8px; border-radius: 12px;
-            display: flex; align-items: center; gap: 12px;
-            transition: all 0.2s ease; text-decoration: none; color: #94a3b8; font-weight: 600;
+            padding: 12px 16px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: background 0.2s;
+            text-decoration: none;
+            color: white;
         }
-        .nav-item:hover { background: #1A1A1A; color: #C8FF00; }
-        .nav-item.active { background: #C8FF00; color: #0C0C0C; box-shadow: 0 4px 12px rgba(200, 255, 0, 0.2); }
-        .nav-icon { width: 22px; height: 22px; }
+        .nav-item:hover {
+            background: #1A1A1A;
+            color: #C8FF00;
+        }
+        .nav-item.active {
+            background: #C8FF00;
+            color: #0C0C0C;
+        }
+        .nav-icon {
+            width: 20px;
+            height: 20px;
+        }
 
         .main-content { margin-left: 260px; min-height: 100vh; display: flex; flex-direction: column; }
         
