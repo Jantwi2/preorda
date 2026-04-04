@@ -1,7 +1,7 @@
 <?php
 session_start();
 error_reporting(E_ALL);
-ini_set('display_errors', 1);
+ini_set('display_errors', 0);
 require_once(__DIR__ . '/../controllers/user_controller.php');
 require_once(__DIR__ . '/../helpers/email_helper.php');
 
